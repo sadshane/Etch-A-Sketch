@@ -10,9 +10,9 @@ body {
 }
 .container {
     border: 1px solid red;
-    height: 500x;
-    width: 500px;
-    display: flex;
+    height: auto;
+    width: auto;
+    /* display: flex; */
     gap: 4px;
     padding: 8px;
 }
