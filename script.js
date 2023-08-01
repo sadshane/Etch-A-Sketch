@@ -1,17 +1,17 @@
 console.log('Shania Claire');
 
 
-function createPixels(size) {
+function createPixels(size = 16) {
     let container = document.querySelector('.container');
+    container.innerHTML = '';
     for (let i = 0; i < size; i++)
     {
         let row = document.createElement('div');
-        row.setAttribute('style', 'display: flex;')
+        row.setAttribute('class', 'row')
         for (let j = 0; j < size; j++)
         {
             let pixel = document.createElement('div');
-            let styles = 'height: 50px; width: 50px; background-color: #CECE5A;';
-            pixel.setAttribute('style', styles);
+            pixel.setAttribute('class', 'pixel');
             row.appendChild(pixel);
 
             pixel.addEventListener('mouseenter', () => {
@@ -29,14 +29,19 @@ function createButton() {
     button.textContent = 'Size';
     button.setAttribute('style', '--c:#E95A49')
     body.insertBefore(button, body.firstChild);
-    button.addEventListener('click', () => {
-        prompt("Enter grid size");
-    });
+    return button;
 }
 
 function main() {
-    createButton();
-    createPixels(16);
+    createPixels();
+    createButton().addEventListener('click', () => {
+        let size = prompt("Enter size");
+        if (size === null || isNaN(size))
+        {
+            return alert('Enter a valid number');
+        }
+        createPixels(parseInt(size));
+    });
 }
 
 main();

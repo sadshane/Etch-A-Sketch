@@ -9,15 +9,26 @@ body {
     height: 100vh;
     width: 100%;
     background: #F2DCA2;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .container {
     border: 20px solid #C51605;
-    height: auto;
-    width: auto;
-    /* display: flex; */
-    gap: 4px;
+    height: 600px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
     padding: 8px;
+}
+
+.row {
+  flex: 1;
+  display: flex;
+}
+
+.pixel {
+  flex: 1;
+  background-color: #CECE5A;
+  /* border: 1px solid red; */
 }
 
 button {
