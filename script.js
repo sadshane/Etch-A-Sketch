@@ -4,6 +4,7 @@ console.log('Shania Claire');
 function createPixels(size = 16) {
     let container = document.querySelector('.container');
     container.innerHTML = '';
+    let randomColor = generateRandomColorValue();
     for (let i = 0; i < size; i++)
     {
         let row = document.createElement('div');
@@ -15,7 +16,9 @@ function createPixels(size = 16) {
             row.appendChild(pixel);
 
             pixel.addEventListener('mouseenter', () => {
-                pixel.style.backgroundColor = '#FFE17B';
+                pixel.style.backgroundColor = convertToRGBValue(randomColor);
+                randomColor = darkenTheColor(randomColor);
+                // console.log(randomColor);
             });
         }
         container.appendChild(row);
@@ -43,6 +46,32 @@ function updateSizeDescription(size) {
     sizeDescription.textContent = `${size} X ${size}`;
 }
 
+function generateRandomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    // console.log(`rgb(${r}, ${g}, ${b})`);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function generateRandomColorValue() {
+    let r = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    return {r, g, b};
+}
+
+function darkenTheColor(color) {
+    let r = +color['r'] - 20 < 0 ? 0 : +color['r'] - 20;
+    let g = +color['g'] - 20 < 0 ? 0 : +color['g'] - 20;
+    let b = +color['b'] - 20 < 0 ? 0 : +color['b'] - 20; 
+    return {r, g, b};
+}
+
+function convertToRGBValue(color) {
+    return `rgb(${color['r']}, ${color['g']}, ${color['b']})`;
+}
+
 function main() {
     let size;
     createPixels();
@@ -63,3 +92,4 @@ function main() {
 }
 
 main();
+// darkenTheColor();

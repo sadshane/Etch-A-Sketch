@@ -19,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    padding: 2px;
 }
 
 .row {
@@ -59,7 +60,7 @@ button {
     background-color: var(--c);
     color: #fff;
   }
-  
+
   button {
     font-family: 'Edu SA Beginner', cursive;
     font-size: 3.5rem;
