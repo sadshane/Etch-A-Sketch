@@ -20,8 +20,7 @@ function createPixels(size = 16) {
         }
         container.appendChild(row);
     }
-    
-}
+}   
 
 function createButton() {
     let button = document.createElement('button');
@@ -32,16 +31,35 @@ function createButton() {
     return button;
 }
 
+function createSizeDescription(size = 16) {
+    let sizeDescription = document.createElement('div');
+    sizeDescription.setAttribute('class', 'description');
+    sizeDescription.textContent = `${size} X ${size}`;
+    document.body.appendChild(sizeDescription);
+}
+
+function updateSizeDescription(size) {
+    let sizeDescription = document.querySelector('.description')
+    sizeDescription.textContent = `${size} X ${size}`;
+}
+
 function main() {
+    let size;
     createPixels();
     createButton().addEventListener('click', () => {
-        let size = prompt("Enter size");
+        size = prompt("Enter size");
+        if (size > 100)
+        {
+            return alert ('Max size is 100');
+        }
         if (size === null || isNaN(size))
         {
             return alert('Enter a valid number');
         }
         createPixels(parseInt(size));
+        updateSizeDescription(size);
     });
+    createSizeDescription();
 }
 
 main();
