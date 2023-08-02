@@ -113,7 +113,7 @@ function hexToRgb(hex) {
   }
   
 
-function navigationButton() {
+function navigationButton(size) {
     let random = document.querySelector('.random');
     let darken = document.querySelector('.darken');
     let reset = document.querySelector('.reset');
@@ -137,7 +137,7 @@ function navigationButton() {
     });
 
     reset.addEventListener('click', () => {
-        createPixels();
+        createPixels(size);
     });
 }
 
@@ -157,8 +157,9 @@ function main() {
         }
         createPixels(parseInt(size));
         updateSizeDescription(size);
+        navigationButton(size);
     });
-    navigationButton();
+    navigationButton(size);
     createSizeDescription();
 }
 
