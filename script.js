@@ -29,8 +29,6 @@ function createPixels(size = 16) {
                     color.addEventListener('input', () => {
                         mainColor = hexToRgb(color.value);
                     });
-                    console.log(mainColor);
-                    console.log(convertToRGBValue(mainColor));
                     pixel.style.backgroundColor = convertToRGBValue(mainColor);
                     mainColor = darkenTheColor(mainColor);
                 }
@@ -77,7 +75,6 @@ function generateRandomColor() {
     let r = Math.floor(Math.random() * 256);
     let g = Math.floor(Math.random() * 256);
     let b = Math.floor(Math.random() * 256);
-    // console.log(`rgb(${r}, ${g}, ${b})`);
     return `rgb(${r}, ${g}, ${b})`;
 }
 
