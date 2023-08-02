@@ -16,9 +16,10 @@ function createPixels(size = 16) {
             row.appendChild(pixel);
 
             pixel.addEventListener('mouseenter', () => {
-                pixel.style.backgroundColor = convertToRGBValue(randomColor);
-                randomColor = darkenTheColor(randomColor);
-                // console.log(randomColor);
+                // pixel.style.backgroundColor = convertToRGBValue(randomColor);
+                // randomColor = darkenTheColor(randomColor);
+
+                pixel.style.backgroundColor = getColor();
             });
         }
         container.appendChild(row);
@@ -28,11 +29,18 @@ function createPixels(size = 16) {
 function createButton() {
     let button = document.createElement('button');
     let body = document.querySelector('body');
+    let topUI = document.querySelector('.top-UI');
     button.textContent = 'Size';
     button.setAttribute('style', '--c:#E95A49')
-    body.insertBefore(button, body.firstChild);
+    // body.insertBefore(button, body.firstChild);
+    topUI.appendChild(button);
     return button;
 }
+
+function getColor() {
+    let color = document.querySelector('#colorPicker');
+    return color.value;
+}   
 
 function createSizeDescription(size = 16) {
     let sizeDescription = document.createElement('div');
@@ -62,9 +70,10 @@ function generateRandomColorValue() {
 }
 
 function darkenTheColor(color) {
-    let r = +color['r'] - 20 < 0 ? 0 : +color['r'] - 20;
-    let g = +color['g'] - 20 < 0 ? 0 : +color['g'] - 20;
-    let b = +color['b'] - 20 < 0 ? 0 : +color['b'] - 20; 
+    let multiplier = 0.97
+    let r = +color['r'] * multiplier < 0 ? 0 : +color['r'] * multiplier;
+    let g = +color['g'] * multiplier < 0 ? 0 : +color['g'] * multiplier;
+    let b = +color['b'] * multiplier < 0 ? 0 : +color['b'] * multiplier; 
     return {r, g, b};
 }
 
@@ -92,4 +101,4 @@ function main() {
 }
 
 main();
-// darkenTheColor();
+getColor();
