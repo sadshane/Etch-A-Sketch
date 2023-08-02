@@ -61,6 +61,22 @@ label {
   font-size: 24px;
 }
 
+.navigation {
+  /* border: 1px solid red; */
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.center-UI {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.9rem;
+  width: 100vh;
+}
+
 button {
     --c:  #229091; /* the color*/
     
@@ -93,4 +109,11 @@ button {
     font-weight: bold;  
     border: none;
     border-radius: 10px;
+  }
+
+  .random, 
+  .darken, 
+  .reset,
+  .normal {
+    font-size: 2rem;
   }

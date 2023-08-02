@@ -1,10 +1,11 @@
 console.log('Shania Claire');
-
+let randomToggle = false;
+let darkenToggle = false;
+let mainColor;
 
 function createPixels(size = 16) {
     let container = document.querySelector('.container');
     container.innerHTML = '';
-    let randomColor = generateRandomColorValue();
     for (let i = 0; i < size; i++)
     {
         let row = document.createElement('div');
@@ -14,12 +15,29 @@ function createPixels(size = 16) {
             let pixel = document.createElement('div');
             pixel.setAttribute('class', 'pixel');
             row.appendChild(pixel);
-
+            
+            let bool = true;
             pixel.addEventListener('mouseenter', () => {
-                // pixel.style.backgroundColor = convertToRGBValue(randomColor);
-                // randomColor = darkenTheColor(randomColor);
-
-                pixel.style.backgroundColor = getColor();
+                if(randomToggle === true)
+                {
+                    bool = true;
+                    pixel.style.backgroundColor = generateRandomColor();
+                }
+                if(darkenToggle === true)
+                {
+                    let color = document.querySelector('#colorPicker');
+                    color.addEventListener('input', () => {
+                        mainColor = hexToRgb(color.value);
+                    });
+                    console.log(mainColor);
+                    console.log(convertToRGBValue(mainColor));
+                    pixel.style.backgroundColor = convertToRGBValue(mainColor);
+                    mainColor = darkenTheColor(mainColor);
+                }
+                if(!randomToggle && !darkenToggle)
+                {
+                    pixel.style.backgroundColor = getColor();
+                }
             });
         }
         container.appendChild(row);
@@ -38,8 +56,9 @@ function createButton() {
 }
 
 function getColor() {
-    let color = document.querySelector('#colorPicker');
-    return color.value;
+    let color = document.querySelector('#colorPicker').value;
+    mainColor = hexToRgb(color);
+    return color;
 }   
 
 function createSizeDescription(size = 16) {
@@ -81,8 +100,53 @@ function convertToRGBValue(color) {
     return `rgb(${color['r']}, ${color['g']}, ${color['b']})`;
 }
 
+function hexToRgb(hex) {
+    // Remove the # symbol if it exists
+    if (hex.startsWith("#")) {
+      hex = hex.slice(1);
+    }
+  
+    // Convert the hex value to RGB components
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+  
+    // Return the RGB value as a string
+    return {r, g, b};
+  }
+  
+
+function navigationButton() {
+    let random = document.querySelector('.random');
+    let darken = document.querySelector('.darken');
+    let reset = document.querySelector('.reset');
+    let normal = document.querySelector('.normal');
+
+    random.addEventListener('click', () => {
+        randomToggle = true;
+        darkenToggle = false;
+    });
+
+    darken.addEventListener('click', () => {
+        randomToggle = false;
+        darkenToggle = true; 
+        let color = document.querySelector('#colorPicker').value;
+        mainColor = hexToRgb(color);
+    });
+
+    normal.addEventListener('click', () => {
+        randomToggle = false;
+        darkenToggle = false; 
+    });
+
+    reset.addEventListener('click', () => {
+        createPixels();
+    });
+}
+
 function main() {
     let size;
+    getColor();
     createPixels();
     createButton().addEventListener('click', () => {
         size = prompt("Enter size");
@@ -97,8 +161,8 @@ function main() {
         createPixels(parseInt(size));
         updateSizeDescription(size);
     });
+    navigationButton();
     createSizeDescription();
 }
 
 main();
-getColor();
